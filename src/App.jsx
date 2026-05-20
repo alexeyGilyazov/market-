@@ -3,12 +3,14 @@ import axios from "axios";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Items from "./components/Items/Items";
+import Categories from "./components/Categories/Categories";
 
 function App() {
   const [allGoods, setAllGoods] = useState([]);
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState([]);
-
+  const [allCategory, setAllCategory] = useState([])
+  const [currentItems, setCurrentItems] = useState([])
 
 
   const addToOrder = (orderGood) => {
@@ -32,6 +34,10 @@ function App() {
       .then((response) => {
         setAllGoods(response.data);
         setLoading(false);
+        const categories = response.data.map(item => item.category);
+        const uniqueCategories = Array.from(new Set(categories));
+        setAllCategory(uniqueCategories)
+
       })
       .catch((error) => {
         console.log("ошибка при загрузке ", error);
@@ -39,10 +45,15 @@ function App() {
       });
   }, []);
 
+  const chooseCategory = category => {
+    setCurrentItems(allGoods.filter(el => el.category === category))
+  }
+
   return (
     <div className="wrapper">
       <Header order={order} deleteOrder={deleteOrder} />
-      <Items allGoods={allGoods} addToOrder={addToOrder} />
+      <Categories allCategory={allCategory} chooseCategory={chooseCategory} />
+      <Items allGoods={currentItems.length > 0 ? currentItems : allGoods} addToOrder={addToOrder} />
       <Footer />
     </div>
   );
