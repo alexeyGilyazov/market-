@@ -1,14 +1,12 @@
-import Item from '../Item/Item'
-import './Items.css'
+import Item from "../Item/Item";
+import "./Items.css";
 
-export default function Items({ allGoods }) {
+export default function Items({ allGoods, addToOrder }) {
     return (
         <main>
-            {
-                allGoods.map(good => (
-                    <Item key={good.id} good={good} />
-                ))
-            }
+            {allGoods.map((good) => (
+                <Item key={good.id} good={good} addToOrder={addToOrder} />
+            ))}
         </main>
-    )
+    );
 }
