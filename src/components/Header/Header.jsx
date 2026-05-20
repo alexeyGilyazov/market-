@@ -1,6 +1,11 @@
+import { FaCartShopping } from "react-icons/fa6";
 import './Header.css'
+import { useState } from "react";
 
 function Header() {
+    const [cartOpen, setCartOpen] = useState(false)
+
+
     return (
         <header>
             <div>
@@ -10,6 +15,12 @@ function Header() {
                     <li>Contact</li>
                     <li>Cabinet</li>
                 </ul>
+                <FaCartShopping onClick={() => setCartOpen(!cartOpen)} className={`nav__cart ${cartOpen && 'active'}`} />
+                {
+                    cartOpen && (
+                        <div className="shop__cart"></div>
+                    )
+                }
             </div>
             <div className="presentaion"></div>
         </header>

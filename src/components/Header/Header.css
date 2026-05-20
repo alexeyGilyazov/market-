@@ -1,6 +1,15 @@
+header {
+    position: relative;
+}
+
 header .logo {
     font-weight: 600;
-    font-size: 20px;
+    font-size: 40px;
+    color: #444444;
+    background: #FFFFFF;
+    text-shadow: 1px 0px 1px #CCCCCC, 0px 1px 1px #EEEEEE, 2px 1px 1px #CCCCCC, 1px 2px 1px #EEEEEE, 3px 2px 1px #CCCCCC, 2px 3px 1px #EEEEEE, 4px 3px 1px #CCCCCC, 3px 4px 1px #EEEEEE, 5px 4px 1px #CCCCCC, 4px 5px 1px #EEEEEE, 6px 5px 1px #CCCCCC, 5px 6px 1px #EEEEEE, 7px 6px 1px #CCCCCC;
+    color: #444444;
+    background: #FFFFFF;
 }
 
 header .nav {
@@ -26,6 +35,7 @@ header .presentaion {
     height: 500px;
     background-size: cover;
     position: relative;
+    border-radius: 15px 15px 0 0;
 }
 
 header .presentaion::after {
@@ -64,4 +74,33 @@ header .presentaion::before {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
     color: #fff;
+}
+
+.nav__cart {
+    float: right;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all .5s ease
+}
+
+.nav__cart:hover,
+.active {
+    color: red;
+    transform: scale(1.4);
+}
+
+
+.shop__cart {
+    position: absolute;
+    top: 105px;
+    right: 0;
+    width: 450px;
+    min-height: 100px;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
 }

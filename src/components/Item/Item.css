@@ -19,7 +19,7 @@
 }
 
 .good__img:hover {
-    transform: scale(1.02);
+    transform: scale(1.1);
 }
 
 .good__title .good__desc {
@@ -46,5 +46,5 @@
 }
 
 .good__addBtn:hover {
-    transform: scale(1.1) translateY(-5px);
+    transform: scale(1.2) translateY(-5px);
 }
