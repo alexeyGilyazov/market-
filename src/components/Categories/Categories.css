@@ -12,9 +12,25 @@
     cursor: pointer;
     transition: all .5s ease;
     background-color: rgba(216, 216, 216, 0.193);
-
+    font-family: "Inconsolata", monospace;
+    line-height: 1.4;
+    color: #222;
+    font-weight: 300;
+    transition: all .5s all;
+    transform: scale(.9);
+    opacity: 0.5;
+    min-width: 170px;
+    text-align: center;
 }
 
 .category__name:hover {
     border: 1px solid rgba(128, 128, 128, 0.225);
+}
+
+.category__name.active {
+    transform: scale(1);
+    opacity: 1;
+    background-color: #f0f0f0;
+    font-weight: 500;
+    color: #222;
 }

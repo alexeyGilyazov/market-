@@ -9,9 +9,10 @@ function App() {
   const [allGoods, setAllGoods] = useState([]);
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState([]);
-  const [allCategory, setAllCategory] = useState([])
-  const [currentItems, setCurrentItems] = useState([])
-
+  const [allCategory, setAllCategory] = useState([]);
+  const [currentItems, setCurrentItems] = useState([]);
+  const [currentCategory, setCurrentCategory] = useState("all");
+  const [activeCategory, setActiveCategory] = useState("all");
 
   const addToOrder = (orderGood) => {
     setOrder((prev) => {
@@ -24,9 +25,9 @@ function App() {
     });
   };
 
-  const deleteOrder = id => {
-    setOrder(order.filter(el => el.id !== id))
-  }
+  const deleteOrder = (id) => {
+    setOrder(order.filter((el) => el.id !== id));
+  };
 
   useEffect(() => {
     axios
@@ -34,10 +35,9 @@ function App() {
       .then((response) => {
         setAllGoods(response.data);
         setLoading(false);
-        const categories = response.data.map(item => item.category);
+        const categories = response.data.map((item) => item.category);
         const uniqueCategories = Array.from(new Set(categories));
-        setAllCategory(uniqueCategories)
-
+        setAllCategory(uniqueCategories);
       })
       .catch((error) => {
         console.log("ошибка при загрузке ", error);
@@ -45,15 +45,29 @@ function App() {
       });
   }, []);
 
-  const chooseCategory = category => {
-    setCurrentItems(allGoods.filter(el => el.category === category))
-  }
+  const chooseCategory = (category) => {
+    setCurrentCategory(category);
+    setCurrentItems(allGoods.filter((el) => el.category === category));
+  };
+
+  const resetFilter = () => {
+    setCurrentCategory("all");
+    setCurrentItems([]);
+  };
 
   return (
     <div className="wrapper">
       <Header order={order} deleteOrder={deleteOrder} />
-      <Categories allCategory={allCategory} chooseCategory={chooseCategory} />
-      <Items allGoods={currentItems.length > 0 ? currentItems : allGoods} addToOrder={addToOrder} />
+      <Categories
+        allCategory={allCategory}
+        chooseCategory={chooseCategory}
+        resetFilter={resetFilter}
+        currentCategory={currentCategory}
+      />
+      <Items
+        allGoods={currentItems.length > 0 ? currentItems : allGoods}
+        addToOrder={addToOrder}
+      />
       <Footer />
     </div>
   );

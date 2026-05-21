@@ -1,10 +1,15 @@
 import { FaCartShopping } from "react-icons/fa6";
 import "./Header.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Order from "../Order/Order";
 
 function Header({ order, deleteOrder }) {
     const [cartOpen, setCartOpen] = useState(false);
+    const [hasItems, setHasItems] = useState(order.length > 0);
+
+    useEffect(() => {
+        setHasItems(order.length > 0);
+    }, [order]);
 
     const showOrders = (order) => {
         const sum = (order.reduce((summa, current) => summa + +current.price, 0)).toFixed(2)
@@ -37,7 +42,7 @@ function Header({ order, deleteOrder }) {
                 </ul>
                 <FaCartShopping
                     onClick={() => setCartOpen(!cartOpen)}
-                    className={`nav__cart ${cartOpen && "active"}`}
+                    className={`nav__cart ${hasItems ? "active" : ""}`}
                 />
                 <div className={`shop__cart ${cartOpen ? "visible" : "hidden"}`}>
                     {order.length > 0 ? showOrders(order) : showNothing()}

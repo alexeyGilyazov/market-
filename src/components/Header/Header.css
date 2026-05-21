@@ -84,7 +84,7 @@ header .presentaion::before {
 }
 
 .nav__cart:hover,
-.active {
+.nav__cart.active {
     color: red;
     transform: scale(1.4);
 }
