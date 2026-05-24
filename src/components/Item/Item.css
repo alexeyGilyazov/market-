@@ -16,6 +16,7 @@
     object-fit: contain;
     max-height: 300px;
     transition: transform .5s ease-in-out;
+    cursor: pointer;
 }
 
 .good__img:hover {

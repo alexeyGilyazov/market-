@@ -4,6 +4,7 @@ import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Items from "./components/Items/Items";
 import Categories from "./components/Categories/Categories";
+import ShowFullItem from "./components/ShowFullItem/ShowFullItem";
 
 function App() {
   const [allGoods, setAllGoods] = useState([]);
@@ -12,7 +13,8 @@ function App() {
   const [allCategory, setAllCategory] = useState([]);
   const [currentItems, setCurrentItems] = useState([]);
   const [currentCategory, setCurrentCategory] = useState("all");
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [showFullItem, setShowFullItem] = useState(false);
+  const [fullItem, setFullItem] = useState({});
 
   const addToOrder = (orderGood) => {
     setOrder((prev) => {
@@ -55,6 +57,12 @@ function App() {
     setCurrentItems([]);
   };
 
+  const onShowItem = (item) => {
+    console.log(item);
+    setFullItem(item);
+    setShowFullItem(!showFullItem);
+  };
+
   return (
     <div className="wrapper">
       <Header order={order} deleteOrder={deleteOrder} />
@@ -67,7 +75,15 @@ function App() {
       <Items
         allGoods={currentItems.length > 0 ? currentItems : allGoods}
         addToOrder={addToOrder}
+        onShowItem={onShowItem}
       />
+      {showFullItem && (
+        <ShowFullItem
+          onShowItem={onShowItem}
+          addToOrder={addToOrder}
+          fullItem={fullItem}
+        />
+      )}
       <Footer />
     </div>
   );
