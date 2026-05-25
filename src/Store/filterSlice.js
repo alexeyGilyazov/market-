@@ -1,3 +1,4 @@
+// src/Store/filterSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const filterSlice = createSlice({
@@ -22,5 +23,5 @@ const filterSlice = createSlice({
     }
 });
 
-export const { setCategory, resetCategory, setFullItem, clearFullItem } = filterSlice.actions
-export const filterReducer = filterSlice.reducer
+export const { setCategory, resetCategory, setFullItem, clearFullItem } = filterSlice.actions;
+export const filterReducer = filterSlice.reducer;

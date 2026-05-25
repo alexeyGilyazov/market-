@@ -4,13 +4,13 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #3535359a;
     z-index: 10000;
     overflow: auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(5px);
+    background-color: rgba(163, 163, 163, 0.6);
+    backdrop-filter: blur(3px);
 }
 
 .close-modal {
@@ -81,4 +81,17 @@
 
 .show__addBtn:hover {
     transform: scale(1.2) translateY(-5px);
+}
+
+.show {
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeInUp 0.3s forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

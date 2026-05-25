@@ -10,6 +10,20 @@ export default function ShowFullItem({ fullItem, onShowItem, addToOrder }) {
       isOpen={!!fullItem}
       onRequestClose={() => onShowItem(null)}
       ariaHideApp={false}
+      style={{
+        overlay: {
+          backgroundColor: "rgba(0, 0, 0, 0.5)", // или ваш цвет
+          zIndex: 10000,
+        },
+        content: {
+          inset: "none",
+          padding: 0,
+          border: "none",
+          background: "transparent",
+          overflow: "visible",
+          borderRadius: 0,
+        },
+      }}
     >
       <div className="full-item">
         <div className="show">

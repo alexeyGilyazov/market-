@@ -34,3 +34,9 @@
     color: red;
     transform: scale(1.4);
 }
+
+.quantity {
+    font-size: 14px;
+    color: #555;
+    margin-left: 8px;
+}
