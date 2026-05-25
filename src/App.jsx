@@ -1,15 +1,23 @@
+// src/App.js
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import axios from "axios";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Items from "./components/Items/Items";
 import Categories from "./components/Categories/Categories";
 import ShowFullItem from "./components/ShowFullItem/ShowFullItem";
 import { fetchItems } from "./Store/ItemsSlice";
+import {
+  setCategory,
+  resetCategory,
+  setFullItem,
+  clearFullItem,
+} from "./Store/filterSlice";
 
 function App() {
   const dispatch = useDispatch();
+
+  // Получение данных из Redux
   const {
     list: allGoods,
     categories,
@@ -17,15 +25,46 @@ function App() {
     error,
   } = useSelector((state) => state.items);
 
-  // const [loading, setLoading] = useState(true);
-  // const [allGoods, setAllGoods] = useState([]);
-  const [order, setOrder] = useState([]);
-  // const [allCategory, setAllCategory] = useState([]);
-  const [currentItems, setCurrentItems] = useState([]);
-  const [currentCategory, setCurrentCategory] = useState("all");
-  const [showFullItem, setShowFullItem] = useState(false);
-  const [fullItem, setFullItem] = useState({});
+  const currentCategory = useSelector((state) => state.filter.currentCategory);
+  const fullItem = useSelector((state) => state.filter.fullItem);
 
+  const [order, setOrder] = useState([]);
+
+  // Загрузка товаров
+  useEffect(() => {
+    dispatch(fetchItems());
+  }, [dispatch]);
+
+  // Обработчик выбора категории
+  const chooseCategory = (category) => {
+    if (category === "all") {
+      dispatch(resetCategory());
+    } else {
+      dispatch(setCategory(category));
+    }
+  };
+
+  // Обработчик сброса фильтра
+  const resetFilter = () => {
+    dispatch(resetCategory());
+  };
+
+  // Обработчик отображения полного товара
+  const onShowItem = (item) => {
+    if (item) {
+      dispatch(setFullItem(item));
+    } else {
+      dispatch(clearFullItem());
+    }
+  };
+
+  // Фильтрация товаров по выбранной категории
+  const displayedItems =
+    currentCategory === "all"
+      ? allGoods
+      : allGoods.filter((el) => el.category === currentCategory);
+
+  // Добавление в заказ
   const addToOrder = (orderGood) => {
     setOrder((prev) => {
       const exist = prev.find((item) => item.id === orderGood.id);
@@ -37,67 +76,34 @@ function App() {
     });
   };
 
-  const deleteOrder = (id) => {
-    setOrder(order.filter((el) => el.id !== id));
-  };
-
-  // useEffect(() => {
-  //   axios
-  //     .get("https://fakestoreapi.com/products")
-  //     .then((response) => {
-  //       setAllGoods(response.data);
-  //       setLoading(false);
-  //       const categories = response.data.map((item) => item.category);
-  //       const uniqueCategories = Array.from(new Set(categories));
-  //       setAllCategory(uniqueCategories);
-  //     })
-  //     .catch((error) => {
-  //       console.log("ошибка при загрузке ", error);
-  //       setLoading(false);
-  //     });
-  // }, []);
-
-  useEffect(() => {
-    dispatch(fetchItems());
-  }, [dispatch]);
-
-  const chooseCategory = (category) => {
-    setCurrentCategory(category);
-    setCurrentItems(allGoods.filter((el) => el.category === category));
-  };
-
-  const resetFilter = () => {
-    setCurrentCategory("all");
-    setCurrentItems([]);
-  };
-
-  const onShowItem = (item) => {
-    console.log(item);
-    setFullItem(item);
-    setShowFullItem(!showFullItem);
-  };
-
   return (
     <div className="wrapper">
-      <Header order={order} deleteOrder={deleteOrder} />
+      <Header
+        order={order}
+        deleteOrder={(id) => setOrder(order.filter((el) => el.id !== id))}
+      />
+
       <Categories
         allCategory={categories}
         chooseCategory={chooseCategory}
         resetFilter={resetFilter}
         currentCategory={currentCategory}
       />
+
       <Items
-        allGoods={currentItems.length > 0 ? currentItems : allGoods}
+        allGoods={displayedItems}
         addToOrder={addToOrder}
         onShowItem={onShowItem}
       />
-      {showFullItem && (
+
+      {fullItem && (
         <ShowFullItem
-          onShowItem={onShowItem}
+          onShowItem={() => onShowItem(null)}
           addToOrder={addToOrder}
           fullItem={fullItem}
         />
       )}
+
       <Footer />
     </div>
   );
