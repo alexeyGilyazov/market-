@@ -1,7 +1,11 @@
+import { useDispatch } from "react-redux";
 import "./Order.css";
 import { FaTrash } from "react-icons/fa";
+import { incrementQuantity, decrementQuantity } from "../../Store/cartSlice";
 
 export default function Order({ orderGood, deleteOrder }) {
+  const dispatch = useDispatch();
+
   return (
     <div className="order">
       <img
@@ -17,14 +21,20 @@ export default function Order({ orderGood, deleteOrder }) {
           )}
         </p>
         <p className="good__price order__price">{orderGood.price}$</p>
-        {/* Добавьте количество товара */}
-        <p className="order__quantity">Quantity: {orderGood.quantity}</p>
+        <div className="order__quantity-controls">
+          <button onClick={() => dispatch(decrementQuantity(orderGood.id))}>
+            -
+          </button>
+          <span>{orderGood.quantity}</span>
+          <button onClick={() => dispatch(incrementQuantity(orderGood.id))}>
+            +
+          </button>
+        </div>
       </div>
       <FaTrash
         onClick={() => deleteOrder(orderGood.id)}
         className="order__deleteBtn"
       />
-      <p className="order__quantity">Количество: {orderGood.quantity}</p>
     </div>
   );
 }
