@@ -2,6 +2,7 @@ import { FaCartShopping } from "react-icons/fa6";
 import "./Header.css";
 import { useState, useEffect } from "react";
 import Order from "../Order/Order";
+import { NavLink } from "react-router-dom";
 
 function Header({ order, deleteOrder }) {
   const [cartOpen, setCartOpen] = useState(false);
@@ -29,22 +30,32 @@ function Header({ order, deleteOrder }) {
     );
   };
 
-  const showNothing = () => {
-    return (
-      <div className="empty">
-        <p>Your cart is empty...</p>
-      </div>
-    );
-  };
+  const showNothing = () => (
+    <div className="empty">
+      <p>Your cart is empty...</p>
+    </div>
+  );
 
   return (
     <header>
       <div>
         <span className="logo">Gi Market</span>
         <ul className="nav">
-          <li>About</li>
-          <li>Contact</li>
-          <li>Cabinet</li>
+          <li>
+            <NavLink className="navLink" to="/">
+              Main
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className="navLink" to="/about">
+              About
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className="navLink" to="/contact">
+              Contact
+            </NavLink>
+          </li>
         </ul>
         <FaCartShopping
           onClick={() => setCartOpen(!cartOpen)}
@@ -54,7 +65,6 @@ function Header({ order, deleteOrder }) {
           {order.length > 0 ? showOrders() : showNothing()}
         </div>
       </div>
-      <div className="presentaion"></div>
     </header>
   );
 }

@@ -3,7 +3,7 @@ import "./ShowFullItem.css";
 import { FaSkullCrossbones } from "react-icons/fa6";
 
 export default function ShowFullItem({ fullItem, onShowItem, addToOrder }) {
-  if (!fullItem) return null; // Защита от undefined
+  if (!fullItem) return null;
 
   return (
     <Modal
