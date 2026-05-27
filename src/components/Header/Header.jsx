@@ -39,7 +39,10 @@ function Header({ order, deleteOrder }) {
   return (
     <header>
       <div>
-        <span className="logo">Gi Market</span>
+        <NavLink className="navLink" to="/">
+          <span className="logo">Gi Market</span>
+        </NavLink>
+
         <ul className="nav">
           <li>
             <NavLink className="navLink" to="/">
