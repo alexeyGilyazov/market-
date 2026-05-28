@@ -3,7 +3,6 @@ import "./Header.css";
 import { useState, useEffect } from "react";
 import Order from "../Order/Order";
 import { NavLink } from "react-router-dom";
-
 function Header({ order, deleteOrder }) {
   const [cartOpen, setCartOpen] = useState(false);
   const [hasItems, setHasItems] = useState(order.length > 0);

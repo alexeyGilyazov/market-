@@ -10,6 +10,7 @@ import {
   clearFullItem,
 } from "../../Store/filterSlice";
 import { useEffect } from "react";
+import BackgroundImage from "../../components/BackgroundImage/BackgroundImage";
 
 function MainPage({ addToOrder, deleteOrder }) {
   const dispatch = useDispatch();
@@ -50,6 +51,7 @@ function MainPage({ addToOrder, deleteOrder }) {
 
   return (
     <>
+      <BackgroundImage />
       <Categories
         allCategory={categories}
         chooseCategory={chooseCategory}
