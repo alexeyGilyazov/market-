@@ -9,6 +9,7 @@ import About from "./pagess/About/About";
 import Contact from "./pagess/Contact/Contact";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
+import BackgroundImage from "./components/BackgroundImage/BackgroundImage";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ function App() {
   return (
     <div className="wrapper">
       <Header order={order} deleteOrder={deleteOrder} />
-
+      <BackgroundImage />
       <AnimatePresence exitBeforeEnter>
         <Routes location={location} key={location.pathname}>
           <Route
